@@ -1,24 +1,33 @@
-I started with take a look in this paper (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6052005/) to know general information aout dogs their breeds. 
-Afterthat I tried to download the sra reads (prefetch SRR7120302) from sra (https://www.ncbi.nlm.nih.gov/sra/SRX4041929[accn]#). 
-Also I searched for refrence genome for dogs and download the fasta file from (ftp://ftp.ensembl.org/pub/release-96/fasta/canis_familiaris/dna/)
+Project steps 
+
+1- I started with take an overview in this paper (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6052005/) to know general information about dogs their breeds and their genome assembly. 
+
+2- I tried to download the sra reads (prefetch SRR7120302) from sra (https://www.ncbi.nlm.nih.gov/sra/SRX4041929[accn]#) but the download failed so I started to work with already dog sequences we used in the lab. 
+
+3- I searched for refrence genome for dogs and download the fasta file from (ftp://ftp.ensembl.org/pub/release-96/fasta/canis_familiaris/dna/)
 and download the gtf annotation for them but I don't know which one gtf annotation I should choose (ftp://ftp.ensembl.org/pub/release-96/gtf/canis_familiaris/)
 
-I searchd to know the difference between them I found this (https://www.biostars.org/p/217700/#241695)
+4- I searchd to know the difference between (File:Canis_familiaris.CanFam3.1.96.chr.gtf.gz , Canis_familiaris.CanFam3.1.96.gtf.gz) and I found this (https://www.biostars.org/p/217700/#241695) and 
+This link explained that the gtf without 'chr' contains annotations for genes on unplaced or unlocalized contigs, while the one with 'chr' only contains annotation for assembled chromosomes, both of them have no prefix 'chr' in chromosome name and based on their recommendation to download the one without 'chr'  if you do not want to loose information about any annotated gene.
 
-The one without 'chr' contains annotations for genes on unplaced or unlocalized contigs, while the one with 'chr' only contains annotation for assembled chromosomes, both of them have no prefix 'chr' in chromosome name and based on their recommendation to download the one without 'chr'  if you do not want to loose information about any annotated gene.
-
+download the GTF reference :
+'''
+mkdir /home/manar/ngs1_project && cd /home/manar/ngs1_project
+mkdir reference && cd reference
 wget ftp://ftp.ensembl.org/pub/release-96/gtf/canis_familiaris/Canis_familiaris.CanFam3.1.96.gtf.gz
 gunzip Canis_familiaris.CanFam3.1.96.gtf.gz
 
-the sample download failed because of the big data and low internet connection so I thought to download small sample and and small reference and tried the command on it then apply to large dataset 
+wget https://de.cyverse.org/dl/d/A9330898-FC54-42A5-B205-B1B2DC0E91AE/dog_chr5.fa.gz
+gunzip dog_chr5.fa.gz
+'''
+5- the SRA sample download failed because of the big data and low internet connection so I thought to download small sample and and small reference and tried the command on it then apply to large dataset 
 
 https://github.com/drtamermansour/nu-ngs02/blob/master/Crash_variant_calling.md
 
 wget https://de.cyverse.org/dl/d/3CE425D7-ECDE-46B8-AB7F-FAF07048AD42/samples.tar.gz
 tar xvzf samples.tar.gz
 
-wget https://de.cyverse.org/dl/d/A9330898-FC54-42A5-B205-B1B2DC0E91AE/dog_chr5.fa.gz
-gunzip dog_chr5.fa.gz
+
 
 cd /home/manar/ngs1_project/samples/
 for f in /home/manar/ngs1_project/samples/*.pe.fq.gz;do fastqc -t 1 -f fastq -noextract $f;done
@@ -29,7 +38,7 @@ hisat alignment
 index your genome
 '''
 
-mkdir ~/home/manar/ngs1_project/hisat_alignmet && cd ~/home/manar/ngs1_project/hisat_alignmet 
+mkdir ~/home/manar/ngs1_project/hisat_alignmet && cd /home/manar/ngs1_project/hisat_alignmet 
 mkdir hisatIndex && cd hisatIndex
 
 ln -s /home/manar/ngs1_project/reference/dog_chr5.fa .
