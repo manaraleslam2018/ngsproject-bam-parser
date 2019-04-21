@@ -82,10 +82,16 @@ samtools view -bS /home/manar/ngs1_project/plant_hisat_alignment/plant_hisat_ali
 samtools sort /home/manar/ngs1_project/plant_hisat_alignment/plant_hisat_aligment.bam -o /home/manar/ngs1_project/plant_hisat_alignment/plant_hisat_aligment.bam_sorted.bam
 
 '''
-Bam parsers include ( pysam or pysbm or samtools) I used samtools 
+Bam parser development
+1- To develope Bam parser, I should have study well AAM\BAM specification through this link 
+http://chagall.med.cornell.edu/galaxy/references/SAM_BAM_Specification.pdf
 
-and Proper discordant read extraction samtools
+2- Bam parsers include ( pysam or pysbm or samtools) I used samtools (http://www.htslib.org/doc/samtools.html)
+
+3- Proper discordant read extraction by FLAG number using samtools
 https://github.com/arq5x/lumpy-sv/issues/193
+Some websites mentioned -F 1294 others -F 3854 I searched for the explanation by (https://broadinstitute.github.io/picard/explain-flags.html)
+I believe that 3854 is the correct from my point of view, Also, I tried both and give thwe same results.
 
 '''
 samtools view -b -F 1294 plant_hisat_aligment.bam_sorted.bam > plant1294_sample.discordants_sorted.bam
