@@ -12,3 +12,4 @@ I tried to found the cause to be discordant:
 after searching I found the definition of discordant: If the distance between R1 and R2 is outside 500bp (+/- 1SD) or they relative orientation is not Forward/Reverse thy will be called as discordant pairs.
 so I made feature count to link between the features and my reads to know if these reads were too short or too long to make the distance out of range. 
 also to know if these reads clustered in a specefic region in the genome or dipersed.
+from my count file it is showed the fragment size it affect but the reads dispersed through the genome and this may be because the genome assembly isn't completed yet it is a draft 
