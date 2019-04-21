@@ -88,8 +88,8 @@ http://chagall.med.cornell.edu/galaxy/references/SAM_BAM_Specification.pdf
 
 2- Bam parsers include ( pysam or pysbm or samtools) I used samtools (http://www.htslib.org/doc/samtools.html)
 
-3- Proper discordant read extraction by FLAG number using samtools
-https://github.com/arq5x/lumpy-sv/issues/193
+3- Proper discordant read extraction by FLAG number using samtools: (https://github.com/arq5x/lumpy-sv/issues/193)
+
 Some websites mentioned -F 1294 others -F 3854 I searched for the explanation by (https://broadinstitute.github.io/picard/explain-flags.html)
 I believe that 3854 is the correct from my point of view, Also, I tried both and give thwe same results.
 
@@ -97,4 +97,9 @@ I believe that 3854 is the correct from my point of view, Also, I tried both and
 samtools view -b -F 1294 plant_hisat_aligment.bam_sorted.bam > plant1294_sample.discordants_sorted.bam
 
 samtools view -b -F 3854 plant_hisat_aligment.bam_sorted.bam > plant3854_sample.discordants_sorted.bam
+'''
+feature count 
+'''
+featureCounts -p -t exon -g gene_id -a /home/manar/ngs1_project/plant_refernce/Corchorus_capsularis.CCACVL1_1.0.43.gff3 -o plant_counts.txt /home/manar/ngs1_project/plant_hisat_alignment/plant3854_sample.discordants_sorted.bam
+awk '{if($7>0)print$1,$2,$3,$4,$5,$6,$7}' <plant_counts.txt > plant_count_more_than_zero.txt
 '''
